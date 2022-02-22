@@ -15,7 +15,10 @@ db.CompaniesBD.find(
 
 ### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
-{founded_year: {$gte: 2000 ,$lte: 2005  }}
+db.CompaniesBD.find(
+  {founded_year: {$gte: 2000,$lte: 2005}},
+  {name: 1,founded_year: 1}
+)
 
 ### 4. All the companies that had a Valuation Amount of more than 100.000.000 and have been founded before 2010. Retrieve only the `name` and `ipo` fields.
 
@@ -34,7 +37,7 @@ db.CompaniesBD.find(
 
 db.CompaniesBD.find(
   {},
-  {partners: 0}
+  {partners: {&exist: false}}
 )
 
 ### 7. All the companies that have a null type of value on the `category_code` field.
@@ -52,7 +55,7 @@ db.CompaniesBD.find(
 
 ### 9. Order all the companies by their IPO price in a descending order.
 
-sort {ipo:1}
+sort {"ipo.valuation_amount": -1}
 
 ### 10. Retrieve the 10 companies with most employees, order by the `number of employees`
 
